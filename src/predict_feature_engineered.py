@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import os
-import pickle
 import sys
 import warnings
 from pathlib import Path
@@ -19,6 +18,7 @@ warnings.filterwarnings(
     module=r"joblib\.externals\.loky\.backend\.context",
 )
 
+import joblib
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
@@ -41,8 +41,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    with Path(args.model_path).open("rb") as f:
-        bundle = pickle.load(f)
+    bundle = joblib.load(args.model_path)
 
     test_df = pd.read_csv(args.test_data)
     unique_df = pd.read_csv(args.unique_data)

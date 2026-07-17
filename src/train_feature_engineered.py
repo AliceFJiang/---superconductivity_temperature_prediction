@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import os
-import pickle
 import sys
 import warnings
 from pathlib import Path
@@ -20,6 +19,7 @@ warnings.filterwarnings(
     module=r"joblib\.externals\.loky\.backend\.context",
 )
 
+import joblib
 import numpy as np
 import pandas as pd
 from lightgbm import LGBMRegressor
@@ -45,13 +45,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--et_estimators", type=int, default=600)
     parser.add_argument("--et_max_features", type=float, default=0.7)
     parser.add_argument("--lgbm_estimators", type=int, default=1200)
-    parser.add_argument("--lgbm_learning_rate", type=float, default=0.03)
-    parser.add_argument("--lgbm_num_leaves", type=int, default=31)
-    parser.add_argument("--lgbm_min_child_samples", type=int, default=20)
-    parser.add_argument("--lgbm_colsample_bytree", type=float, default=0.9)
+    parser.add_argument("--lgbm_learning_rate", type=float, default=0.02)
+    parser.add_argument("--lgbm_num_leaves", type=int, default=63)
+    parser.add_argument("--lgbm_min_child_samples", type=int, default=10)
+    parser.add_argument("--lgbm_colsample_bytree", type=float, default=0.8)
     parser.add_argument("--lgbm_subsample", type=float, default=0.9)
     parser.add_argument("--lgbm_reg_alpha", type=float, default=0.05)
-    parser.add_argument("--lgbm_reg_lambda", type=float, default=0.1)
+    parser.add_argument("--lgbm_reg_lambda", type=float, default=0.05)
     parser.add_argument("--high_temp_threshold", type=float, default=77.0)
     parser.add_argument(
         "--high_temp_weight",
@@ -59,7 +59,7 @@ def parse_args() -> argparse.Namespace:
         default=1.0,
         help="Training weight for high-temperature samples. Use 1.0 to disable weighting.",
     )
-    parser.add_argument("--n_jobs", type=int, default=None)
+    parser.add_argument("--n_jobs", type=int, default=-1)
     return parser.parse_args()
 
 
@@ -193,8 +193,7 @@ def main() -> None:
     }
     model_path = Path(args.model_path)
     model_path.parent.mkdir(parents=True, exist_ok=True)
-    with model_path.open("wb") as f:
-        pickle.dump(bundle, f)
+    joblib.dump(bundle, model_path)
     print(f"saved feature-engineered model: {model_path}")
 
 
