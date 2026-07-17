@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments and local dependencies
+.venv/
+.venv_experiment/
+.python_deps/
+
+# Generated artifacts
+models/
+predictions.csv
+*.joblib
+*.pkl
+*.pickle
+*.baiduyun.p.downloading
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Original local submission/backup folders kept outside the polished GitHub project
+【津南】【机器学习期末大作业】2411434_冯怡然/
+云盘备份_任务三_最终版/
+
+# Local exploratory scripts with machine-specific paths
+/conditional_high_temp_fusion.py
+/fusion_high_temp_proxy.py
+/learned_high_temp_fusion.py
+/test_feature_engineered.py
+/test_feature_learned_fusion.py
+/test_feature_regional_fusion.py
+/validate_feature_engineered.py
+/机器学习期末大作业.pdf
