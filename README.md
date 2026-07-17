@@ -79,8 +79,3 @@ Then run:
 python src/predict_feature_engineered.py --test_data data/ml_test.csv --unique_data data/unique_m_test.csv --model_path models/model_feature_engineered.joblib --prediction_path predictions.csv
 ```
 
-## Resume Summary
-
-Portfolio wording:
-
-> Superconductivity Critical Temperature Prediction: built a chemistry-aware regression pipeline using composition-derived features and an ExtraTrees + LightGBM ensemble, achieving RMSE 8.95 and R2 0.93 on a fixed validation split.
